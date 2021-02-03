@@ -77,7 +77,8 @@
         <EditText
             android:id="@+id/txtSubscribe"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:text="nuga/0caf305f30d54133bc1798bef04b86bb/statusResponse"
+            android:layout_height="wrap_content"
             android:layout_weight="5"
             android:gravity="center_vertical"
             android:hint="Topic name" />
@@ -126,7 +127,8 @@
         <EditText
             android:id="@+id/txtTopic"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:text="nuga/0caf305f30d54133bc1798bef04b86bb/statusRequest"
+            android:layout_height="wrap_content"
             android:layout_weight="5"
             android:gravity="center_vertical" />
     </LinearLayout>

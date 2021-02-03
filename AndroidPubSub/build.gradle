@@ -1,10 +1,12 @@
 repositories {
     jcenter()
+    google()
 }
 
 buildscript {
     repositories {
         jcenter()
+        google()
     }
 
     dependencies {
@@ -15,7 +17,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'com.amazonaws:aws-android-sdk-iot:2.6.+'
+    implementation 'com.amazonaws:aws-android-sdk-iot:2.6.+'
 }
 
 android {

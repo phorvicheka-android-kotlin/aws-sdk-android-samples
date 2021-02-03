@@ -72,15 +72,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/txtSubcribe"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:gravity="center_vertical"
             android:hint="Topic name"
-            android:gravity="center_vertical" />
+            android:text="nuga/0caf305f30d54133bc1798bef04b86bb/statusResponse" />
 
         <Button
             android:id="@+id/btnSubscribe"
@@ -126,8 +127,9 @@
         <EditText
             android:id="@+id/txtTopic"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:text="nuga/0caf305f30d54133bc1798bef04b86bb/statusRequest"
             android:gravity="center_vertical" />
     </LinearLayout>
 
@@ -149,6 +151,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
+            android:text = "Is machine on?"
             android:gravity="center_vertical" />
     </LinearLayout>
 

@@ -33,6 +33,7 @@ import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.iot.AWSIotClient;
+import com.amazonaws.services.iot.model.AttachPolicyRequest;
 import com.amazonaws.services.iot.model.AttachPrincipalPolicyRequest;
 import com.amazonaws.services.iot.model.CreateKeysAndCertificateRequest;
 import com.amazonaws.services.iot.model.CreateKeysAndCertificateResult;
@@ -49,15 +50,15 @@ public class PubSubActivity extends Activity {
 
     // IoT endpoint
     // AWS Iot CLI describe-endpoint call returns: XXXXXXXXXX.iot.<region>.amazonaws.com
-    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "CHANGE_ME";
+    private static final String CUSTOMER_SPECIFIC_ENDPOINT = "ajqa4269qyk6b-ats.iot.ap-northeast-2.amazonaws.com";
     // Cognito pool ID. For this app, pool needs to be unauthenticated pool with
     // AWS IoT permissions.
-    private static final String COGNITO_POOL_ID = "CHANGE_ME";
+    private static final String COGNITO_POOL_ID = "ap-northeast-2:980deec4-ec11-475e-9d76-09bece0379b5";
     // Name of the AWS IoT policy to attach to a newly created certificate
-    private static final String AWS_IOT_POLICY_NAME = "CHANGE_ME";
+    private static final String AWS_IOT_POLICY_NAME = "nuga";
 
     // Region of AWS IoT
-    private static final Regions MY_REGION = Regions.US_EAST_1;
+    private static final Regions MY_REGION = Regions.AP_NORTHEAST_2;
     // Filename of KeyStore file on the filesystem
     private static final String KEYSTORE_NAME = "iot_keystore";
     // Password for the private key in the KeyStore
@@ -129,7 +130,7 @@ public class PubSubActivity extends Activity {
                 MY_REGION // Region
         );
 
-        Region region = Region.getRegion(MY_REGION);
+        final Region region = Region.getRegion(MY_REGION);
 
         // MQTT Client
         mqttManager = new AWSIotMqttManager(clientId, CUSTOMER_SPECIFIC_ENDPOINT);
@@ -212,12 +213,19 @@ public class PubSubActivity extends Activity {
                         // This flow assumes the policy was already created in
                         // AWS IoT and we are now just attaching it to the
                         // certificate.
-                        AttachPrincipalPolicyRequest policyAttachRequest =
+                        /*AttachPrincipalPolicyRequest policyAttachRequest =
                                 new AttachPrincipalPolicyRequest();
                         policyAttachRequest.setPolicyName(AWS_IOT_POLICY_NAME);
                         policyAttachRequest.setPrincipal(createKeysAndCertificateResult
                                 .getCertificateArn());
-                        mIotAndroidClient.attachPrincipalPolicy(policyAttachRequest);
+                        mIotAndroidClient.attachPrincipalPolicy(policyAttachRequest);*/
+
+                        AttachPolicyRequest policyAttachRequest = new AttachPolicyRequest();
+                        policyAttachRequest.setPolicyName(AWS_IOT_POLICY_NAME);
+                        policyAttachRequest.setTarget(createKeysAndCertificateResult.getCertificateArn());
+                        mIotAndroidClient.setRegion(region);
+                        mIotAndroidClient.attachPolicy(policyAttachRequest);
+
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -240,6 +248,7 @@ public class PubSubActivity extends Activity {
         public void onClick(View v) {
 
             Log.d(LOG_TAG, "clientId = " + clientId);
+            Log.d(LOG_TAG, "clientKeyStore = " + clientKeyStore);
 
             try {
                 mqttManager.connect(clientKeyStore, new AWSIotMqttClientStatusCallback() {
